@@ -1,5 +1,7 @@
 import { Server } from 'socket.io';
 
+let statusInterval: NodeJS.Timeout | null = null;
+
 export function setupSocket(io: Server) {
   io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
@@ -32,7 +34,12 @@ export function setupSocket(io: Server) {
   });
 
   // Broadcast system status every 30 seconds
-  setInterval(() => {
+  // Clear existing interval if any
+  if (statusInterval) {
+    clearInterval(statusInterval);
+  }
+  
+  statusInterval = setInterval(() => {
     io.to('security-alerts').emit('system:status', {
       status: 'online',
       timestamp: new Date().toISOString(),
@@ -40,6 +47,18 @@ export function setupSocket(io: Server) {
       systemHealth: 'healthy'
     });
   }, 30000);
+
+  // Cleanup function
+  const cleanup = () => {
+    if (statusInterval) {
+      clearInterval(statusInterval);
+      statusInterval = null;
+    }
+  };
+
+  // Handle server shutdown
+  process.on('SIGTERM', cleanup);
+  process.on('SIGINT', cleanup);
 
   return io;
 }

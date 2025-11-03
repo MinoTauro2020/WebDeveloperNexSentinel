@@ -3,9 +3,23 @@
 import { useState } from "react";
 import { Shield, Zap, Search, Lock, AlertTriangle, CheckCircle2 } from "lucide-react";
 
+interface ScanResult {
+  status: string;
+  target?: string;
+  timestamp?: string;
+  summary?: {
+    critical: number;
+    high: number;
+    medium: number;
+    low: number;
+  };
+  vulnerabilities?: string[];
+  recommendations?: string[];
+}
+
 export default function Home() {
   const [scanUrl, setScanUrl] = useState("");
-  const [scanResult, setScanResult] = useState<any>(null);
+  const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [isScanning, setIsScanning] = useState(false);
 
   const handleScan = async (e: React.FormEvent) => {
@@ -25,6 +39,34 @@ export default function Home() {
       console.error("Scan error:", error);
     } finally {
       setIsScanning(false);
+    }
+  };
+
+  const handleIncidentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company: formData.get("company"),
+          email: formData.get("email"),
+          incidentType: formData.get("incidentType"),
+          description: formData.get("description"),
+          urgency: "high",
+        }),
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        alert(`Incidente reportado exitosamente. ID: ${data.incident.id}\nTiempo estimado de respuesta: ${data.incident.estimatedResponseTime}`);
+        e.currentTarget.reset();
+      }
+    } catch (error) {
+      console.error("Contact error:", error);
+      alert("Error al enviar el reporte. Por favor intenta nuevamente.");
     }
   };
 
@@ -162,22 +204,25 @@ export default function Home() {
               </p>
             </div>
 
-            <form className="space-y-4">
+            <form onSubmit={handleIncidentSubmit} className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <input
                   type="text"
+                  name="company"
                   placeholder="Nombre de la empresa"
                   className="bg-gray-900 border border-green-500/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
                   required
                 />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Email de contacto"
                   className="bg-gray-900 border border-green-500/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
                   required
                 />
               </div>
               <select
+                name="incidentType"
                 className="w-full bg-gray-900 border border-green-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500"
                 required
               >
@@ -189,6 +234,7 @@ export default function Home() {
                 <option value="other">Otro</option>
               </select>
               <textarea
+                name="description"
                 placeholder="Describe el incidente..."
                 rows={4}
                 className="w-full bg-gray-900 border border-green-500/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"

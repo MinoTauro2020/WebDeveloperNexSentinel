@@ -61,6 +61,13 @@ function generateMockVulnerabilities(url: string) {
   const vulnerabilities = [];
   const random = Math.random();
 
+  // Use URL to make results more realistic
+  const isHttps = url.startsWith('https');
+  
+  if (!isHttps) {
+    vulnerabilities.push("Site not using HTTPS - data transmitted in plain text");
+  }
+
   if (random > 0.5) {
     vulnerabilities.push("Missing security headers detected");
   }
