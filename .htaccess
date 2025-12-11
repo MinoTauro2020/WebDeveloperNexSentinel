@@ -1,0 +1,91 @@
+# ----------------------------------------------------------------------
+# COMPRESSION (mod_deflate)
+# ----------------------------------------------------------------------
+# Compress text, html, css, javascript, and other files to improve load time.
+
+Redirect /prueba https://www.google.com
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# ----------------------------------------------------------------------
+# CACHING (mod_expires)
+# ----------------------------------------------------------------------
+# Set expiration times for different file types to leverage browser caching.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# SECURITY HEADERS (mod_headers)
+# ----------------------------------------------------------------------
+# Add security headers to protect against common attacks.
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options nosniff
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://fonts.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com;"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# URL REWRITING (mod_rewrite)
+# ----------------------------------------------------------------------
+# Enable the rewrite engine only once.
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))$ $1 [L]
+
+# 1. Force HTTPS (Secure Connection)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Force WWW (excluding the contact script)
+RewriteCond %{HTTP_HOST} ^nex-sentinel.com [NC]
+RewriteCond %{REQUEST_URI} !^/contact-simple\.php$
+RewriteRule ^(.*)$ https://www.nex-sentinel.com/$1 [L,R=301]
+
+# 3. Pretty URLs (Custom Routing)
+# --- Service Detail Pages ---
+RewriteRule ^servicios/ransomware-alicante$ pages/servicios/ransomware-alicante.html [L]
+RewriteRule ^servicios/recuperacion-datos$ pages/servicios/recuperacion-datos.html [L]
+
+# --- Static Pages ---
+RewriteRule ^aviso-legal$ pages/aviso-legal.html [L]
+RewriteRule ^politica-cookies$ pages/politica-cookies.html [L]
+RewriteRule ^politica-privacidad$ pages/política-privacidad.html [L]
+
+# --- Blog/Artículos ---
+# Los artículos se sirven desde /articulos/ como archivos .html estáticos
+# El directorio /blog/ estaba bloqueado por configuración del servidor, se usó /articulos/
+
+# --- Generic Services (after specific ones) ---
+RewriteRule ^servicios/([^/]+)/?$ servicio.php?service=$1 [L,QSA]
+
+# --- Locations (the most generic, last) ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.
+RewriteCond %{REQUEST_URI} !^/articulos/
+RewriteRule ^([^/]+)/?$ location.php?city=$1 [L,QSA]

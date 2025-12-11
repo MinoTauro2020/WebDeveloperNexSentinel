@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5914722248817610"
+     crossorigin="anonymous"></script>
+
+    <title>Blog de Ciberseguridad | Nex-Sentinel</title>
+    <meta name="description" content="Artículos sobre ransomware, ciberseguridad y protección para empresas en Alicante. Guías, análisis y noticias actualizadas.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .blog-card.featured {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .featured-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .blog-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .blog-link:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-card.featured {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Volver a Inicio</a>
+
+        <header>
+            <h1>🛡️ Blog de Ciberseguridad</h1>
+            <p class="subtitle">Noticias, guías y análisis sobre ransomware y protección empresarial</p>
+        </header>
+
+        <div class="blog-grid">
+            <!-- NUEVO ARTÍCULO DESTACADO -->
+            <div class="blog-card featured">
+                <div class="blog-image" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); height: 250px;">🎯</div>
+                <div class="blog-content">
+                    <span class="featured-badge">🔥 DESTACADO</span>
+                    <div class="blog-date">29 de noviembre, 2024</div>
+                    <h3 class="blog-title" style="font-size: 1.8rem;">Alicante en la Mira del Ciberataque: La Sombra Digital se Cierne sobre la Provincia</h3>
+                    <p class="blog-excerpt" style="font-size: 1.05rem;">Análisis completo de por qué Alicante se ha convertido en objetivo prioritario de ciberdelincuentes. Descubre las amenazas actuales, el caso del Ayuntamiento de El Campello, el impacto de la Directiva NIS2 y cómo construir una fortaleza digital para tu empresa.</p>
+                    <a href="/articulos/alicante-ciberataque-sombra-digital.html" class="blog-link" style="font-size: 1.1rem;">Leer artículo completo →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🔧</div>
+                <div class="blog-content">
+                    <div class="blog-date">28 de noviembre, 2024</div>
+                    <h3 class="blog-title">Top 10 Herramientas Anti-Ransomware GRATUITAS</h3>
+                    <p class="blog-excerpt">Las mejores herramientas gratuitas para proteger tu empresa contra ransomware. Comparativa completa 2024 con tutoriales paso a paso.</p>
+                    <a href="/articulos/top-10-herramientas-anti-ransomware-gratuitas.html" class="blog-link">Leer más →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">💾</div>
+                <div class="blog-content">
+                    <div class="blog-date">28 de noviembre, 2024</div>
+                    <h3 class="blog-title">Cómo Recuperar Archivos Cifrados sin Pagar Rescate</h3>
+                    <p class="blog-excerpt">Guía paso a paso con métodos probados para recuperar tus datos sin enriquecer a cibercriminales. Incluye herramientas y estadísticas de éxito.</p>
+                    <a href="/articulos/como-recuperar-archivos-cifrados-ransomware.html" class="blog-link">Leer más →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🏨</div>
+                <div class="blog-content">
+                    <div class="blog-date">27 de noviembre, 2024</div>
+                    <h3 class="blog-title">Aumento Alarmante de Ransomware en el Sector Turístico</h3>
+                    <p class="blog-excerpt">Los hoteles de Alicante se han convertido en objetivo prioritario para grupos de ransomware. Análisis de casos recientes y medidas de protección.</p>
+                    <a href="/articulos/aumento-ataques-ransomware-turismo-alicante.html" class="blog-link">Leer más →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🏢</div>
+                <div class="blog-content">
+                    <div class="blog-date">26 de noviembre, 2024</div>
+                    <h3 class="blog-title">Guía Completa: Protege tu PYME en Elche Contra Ciberataques</h3>
+                    <p class="blog-excerpt">Checklist de 50 puntos de ciberseguridad para pequeñas y medianas empresas. Incluye presupuestos realistas y herramientas recomendadas.</p>
+                    <a href="/articulos/guia-proteger-pyme-elche-ciberataques.html" class="blog-link">Leer más →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🚨</div>
+                <div class="blog-content">
+                    <div class="blog-date">25 de noviembre, 2024</div>
+                    <h3 class="blog-title">ALERTA: Nueva Variante de Ransomware Ataca Hoteles en Benidorm</h3>
+                    <p class="blog-excerpt">Detectada nueva cepa de ransomware dirigida específicamente a sistemas hoteleros. Indicadores de compromiso y medidas urgentes de protección.</p>
+                    <a href="/articulos/nueva-variante-ransomware-benidorm.html" class="blog-link">Leer más →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

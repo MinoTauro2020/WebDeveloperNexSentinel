@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: *.php$ Disallow: /*.pdf$ Disallow: /private/
+Disallow: /temp/
+
+# Allow specific important files
+Allow: /contact-simple.php
+Allow: /sitemap.xml
+
+# Sitemap location
+Sitemap: https://nex-sentinel.com/sitemap.xml
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
